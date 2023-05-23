@@ -6,7 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css?ver=1') }}">
 
 
     <title>MyLearningHub</title>
@@ -19,5 +19,6 @@
 </div>
 
 <script src="{{ asset('js/app.js') }}?time={{ time() }}"></script>
+<script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
 </body>
 </html>

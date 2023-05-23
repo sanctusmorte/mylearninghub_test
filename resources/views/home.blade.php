@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <test-component/>
+    <enrollments-list-component/>
 @endsection

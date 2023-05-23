@@ -7,14 +7,28 @@ use App\Services\Enrollment\DTO\EnrollmentGetListDTO;
 
 class EnrollmentDataService
 {
+    private EnrollmentProcessorFactory $factory;
+
+    public function __construct(EnrollmentProcessorFactory $factory)
+    {
+        $this->factory = $factory;
+    }
+
     public function getList(EnrollmentGetListDTO $DTO)
     {
-        $where = [];
+        $processor = $this->factory->getProcessor($this->isFullSearch($DTO));
 
-        if (!empty($DTO->getStatus())) {
-            $where['status'] = $DTO->getStatus();
-        }
+        return $processor->getList($DTO);
+    }
 
-        return Enrollment::where($where)->limit($DTO->getLimit())->skip($DTO->getOffset())->get()->toArray();
+    public function getAvailableStatuses()
+    {
+        return Enrollment::select('status')->distinct()->get();
+    }
+
+    private function IsFullSearch(EnrollmentGetListDTO $DTO): bool
+    {
+        return !empty($DTO->getUserEmail()) || !empty($DTO->getUserName()) || !empty($DTO->getCourseTitle()) ||
+               in_array($DTO->getSortColumn(), ['user_name', 'user_email', 'course_title']);
     }
 }

@@ -4,33 +4,39 @@ namespace App\Services\Enrollment\DTO;
 
 class EnrollmentGetListDTO
 {
-    private ?string $title;
+    private ?string $courseTitle;
     private ?string $userEmail;
     private ?string $userName;
     private ?string $status;
     private ?int $limit;
-    private ?int $offset;
+    private ?int $page;
+    private ?string $sortColumn;
+    private ?string $sortDir;
 
     public function __construct
     (
-        ?string $title,
+        ?string $courseTitle,
         ?string $userEmail,
         ?string $userName,
         ?string $status,
         ?int $limit,
-        ?int $offset,
+        ?int $page,
+        ?string $sortColumn,
+        ?string $sortDir,
     ) {
-        $this->title = $title;
+        $this->courseTitle = $courseTitle;
         $this->userEmail = $userEmail;
         $this->userName = $userName;
         $this->status = $status;
         $this->limit = $limit;
-        $this->offset = $offset;
+        $this->page = $page;
+        $this->sortColumn = $sortColumn;
+        $this->sortDir = $sortDir;
     }
 
-    public function getTitle(): ?string
+    public function getCourseTitle(): ?string
     {
-        return $this->title;
+        return $this->courseTitle;
     }
 
     public function getUserEmail(): ?string
@@ -43,6 +49,7 @@ class EnrollmentGetListDTO
         return $this->userName;
     }
 
+
     public function getStatus(): ?string
     {
         return $this->status;
@@ -53,8 +60,18 @@ class EnrollmentGetListDTO
         return $this->limit;
     }
 
-    public function getOffset(): ?int
+    public function getPage(): ?int
     {
-        return $this->offset;
+        return $this->page;
+    }
+
+    public function getSortColumn(): ?string
+    {
+        return $this->sortColumn;
+    }
+
+    public function getSortDir(): ?string
+    {
+        return $this->sortDir;
     }
 }

@@ -2,10 +2,13 @@ require('./bootstrap');
 
 import "bootstrap";
 import { createApp } from 'vue'
-import Test from './components/Test'
+import EnrollmentsList from './components/EnrollmentsList'
+import { TailwindPagination } from 'laravel-vue-pagination';
 
 const app = createApp({})
 
-app.component('test-component', Test)
+app.component('enrollments-list-component', EnrollmentsList)
+app.component('TailwindPagination', TailwindPagination)
+
 
 app.mount('#app')
