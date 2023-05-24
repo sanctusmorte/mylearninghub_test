@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\ResponseEnum;
 use App\Http\Requests\Enrollments\EnrollmentCreateRequest;
+use App\Http\Requests\Enrollments\EnrollmentDeleteRequest;
 use App\Http\Requests\Enrollments\EnrollmentEditRequest;
 use App\Http\Requests\Enrollments\EnrollmentsListRequest;
 use App\Http\Resources\Enrollment\EnrollmentResource;
@@ -57,7 +58,7 @@ class EnrollmentsController extends Controller
         return $this->responseSuccess();
     }
 
-    public function delete(EnrollmentEditRequest $request, EnrollmentDataService $dataService): JsonResponse
+    public function delete(EnrollmentDeleteRequest $request, EnrollmentDataService $dataService): JsonResponse
     {
         try {
             $dataService->delete($request->input('id'));

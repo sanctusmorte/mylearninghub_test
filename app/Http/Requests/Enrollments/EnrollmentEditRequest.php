@@ -13,7 +13,7 @@ class EnrollmentEditRequest extends BaseRequest
     {
         return [
             'id' => ['integer', 'required'],
-            'status' => ['string', Rule::in(EnrollmentStatusEnum::list())],
+            'status' => ['string', 'required', Rule::in(EnrollmentStatusEnum::list())],
         ];
     }
 }
