@@ -49,7 +49,6 @@ class FullSearchProcessor implements EnrollmentProcessor
                 ->orderBy(self::COLUMN_MAPPER[$DTO->getSortColumn()], $DTO->getSortDir())
                 ->paginate($DTO->getLimit());
         } catch (\Exception $e) {
-            dd($e);
             throw new EnrollmentFullSearchException($e->getMessage(), 402, $e);
         }
     }

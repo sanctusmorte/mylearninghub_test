@@ -12,7 +12,6 @@ class CoursesController extends Controller
         try {
             return $this->responseSuccess(['items' => $dataService->getList()]);
         } catch (\Exception $e) {
-            dd($e);
             return $this->responseError();
         }
     }
