@@ -27,14 +27,14 @@ export default {
     },
     methods: {
         fetch_available_users: function () {
-            fetch(API_USERS)
+            fetch(API_USERS + '?token=0a68d206-d271-47da-846f-07ec94075f6c')
                 .then(res => res.json())
                 .then(json => {
                     this.users = json.items;
                 });
         },
         fetch_available_courses: function () {
-            fetch(API_COURSES)
+            fetch(API_COURSES + '?token=0a68d206-d271-47da-846f-07ec94075f6c')
                 .then(res => res.json())
                 .then(json => {
                     this.courses = json.items;

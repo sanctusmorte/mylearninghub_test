@@ -16,12 +16,12 @@ class EnrollmentsTest extends TestCase
      */
     public function testAvailableStatuses()
     {
-        $response = $this->get('/api/v1/enrollments/available-statuses')->assertStatus(200);
+        $response = $this->get('/api/v1/enrollments/available-statuses?token=0a68d206-d271-47da-846f-07ec94075f6c')->assertStatus(200);
     }
 
     public function testInvalidStatusForGetList()
     {
-        $this->get('/api/v1/enrollments?status=invalid')
+        $this->get('/api/v1/enrollments?status=invalid&token=0a68d206-d271-47da-846f-07ec94075f6c')
             ->assertStatus(200)
             ->assertJsonFragment([
                 'errors' => [
@@ -84,7 +84,7 @@ class EnrollmentsTest extends TestCase
 
     public function testGetList()
     {
-        $response = $this->get('/api/v1/enrollments?page=1&limit=20')->assertStatus(200);
+        $response = $this->get('/api/v1/enrollments?page=1&limit=20&token=0a68d206-d271-47da-846f-07ec94075f6c')->assertStatus(200);
 
         $response->assertJson(fn (AssertableJson $json) =>
             $json->hasAll(['data', 'links', 'meta'])
@@ -93,7 +93,7 @@ class EnrollmentsTest extends TestCase
 
     public function testGetListWithSort()
     {
-        $response = $this->get('/api/v1/enrollments?page=1&limit=20&sort_column=id&sort_dir=desc')->assertStatus(200);
+        $response = $this->get('/api/v1/enrollments?page=1&limit=20&sort_column=id&sort_dir=desc&token=0a68d206-d271-47da-846f-07ec94075f6c')->assertStatus(200);
 
         $response->assertJson(fn (AssertableJson $json) =>
             $json->hasAll(['data', 'links', 'meta'])
@@ -102,7 +102,7 @@ class EnrollmentsTest extends TestCase
 
     public function testGetListWithSearch()
     {
-        $response = $this->get('/api/v1/enrollments?page=1&limit=50&course_title=til&user_email=mak')->assertStatus(200);
+        $response = $this->get('/api/v1/enrollments?page=1&limit=50&course_title=til&user_email=mak&token=0a68d206-d271-47da-846f-07ec94075f6c')->assertStatus(200);
 
         $response->assertJson(fn (AssertableJson $json) =>
             $json->hasAll(['data', 'links', 'meta'])
@@ -111,7 +111,7 @@ class EnrollmentsTest extends TestCase
 
     public function testGetListWithFilterByStatus()
     {
-        $response = $this->get('/api/v1/enrollments?page=1&limit=50&status=complete')->assertStatus(200);
+        $response = $this->get('/api/v1/enrollments?page=1&limit=50&status=complete&token=0a68d206-d271-47da-846f-07ec94075f6c')->assertStatus(200);
 
         $response->assertJson(fn (AssertableJson $json) =>
             $json->hasAll(['data', 'links', 'meta'])

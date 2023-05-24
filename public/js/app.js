@@ -22661,7 +22661,7 @@ var API_COURSES = '/api/v1/courses';
   methods: {
     fetch_available_users: function fetch_available_users() {
       var _this = this;
-      fetch(API_USERS).then(function (res) {
+      fetch(API_USERS + '?token=0a68d206-d271-47da-846f-07ec94075f6c').then(function (res) {
         return res.json();
       }).then(function (json) {
         _this.users = json.items;
@@ -22669,7 +22669,7 @@ var API_COURSES = '/api/v1/courses';
     },
     fetch_available_courses: function fetch_available_courses() {
       var _this2 = this;
-      fetch(API_COURSES).then(function (res) {
+      fetch(API_COURSES + '?token=0a68d206-d271-47da-846f-07ec94075f6c').then(function (res) {
         return res.json();
       }).then(function (json) {
         _this2.courses = json.items;
@@ -22787,7 +22787,7 @@ var API_ENROLLMENTS = '/api/v1/enrollments';
     },
     fetch_available_statuses: function fetch_available_statuses(needUrl) {
       var _this = this;
-      fetch(API_ENROLLMENTS + '/available-statuses').then(function (res) {
+      fetch(API_ENROLLMENTS + '/available-statuses?token=0a68d206-d271-47da-846f-07ec94075f6c').then(function (res) {
         return res.json();
       }).then(function (json) {
         _this.available_statuses = json.items;
@@ -22867,7 +22867,8 @@ var API_ENROLLMENTS = '/api/v1/enrollments';
         'page': this.page,
         'limit': this.limit,
         'sort_column': this.currentSort,
-        'sort_dir': this.currentSortDir
+        'sort_dir': this.currentSortDir,
+        'token': '0a68d206-d271-47da-846f-07ec94075f6c'
       };
       if (this.status !== null) {
         urlParams.status = this.status;

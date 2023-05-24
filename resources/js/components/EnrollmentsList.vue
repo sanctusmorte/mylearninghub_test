@@ -55,7 +55,7 @@ export default {
             this.fetch_data();
         },
         fetch_available_statuses: function (needUrl) {
-            fetch(API_ENROLLMENTS + '/available-statuses')
+            fetch(API_ENROLLMENTS + '/available-statuses?token=0a68d206-d271-47da-846f-07ec94075f6c')
                 .then(res => res.json())
                 .then(json => {
                     this.available_statuses = json.items;
@@ -146,6 +146,7 @@ export default {
                 'limit' : this.limit,
                 'sort_column' : this.currentSort,
                 'sort_dir' : this.currentSortDir,
+                'token' : '0a68d206-d271-47da-846f-07ec94075f6c'
             }
 
             if (this.status !== null) {
