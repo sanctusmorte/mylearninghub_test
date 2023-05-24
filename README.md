@@ -13,3 +13,13 @@
     ResponseTrait
     ResourceCollections
     Frontend - pagination, search by email & title & name, create/update/delete
+
+**How to install:**
+
+git clone
+composer install
+php artisan key:generate
+npm install && npm run build
+php artisan migrate
+php artisan seed
+php artisan test
