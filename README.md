@@ -14,3 +14,4 @@ Test task https://mylearninghub.notion.site/mylearninghub/full-stack-1a2d3824e6d
     PHPUnit for API endpoints
     ResponseTrait
     ResourceCollections
+    Frontend - pagination, search by email & title & name, create/update/delete
