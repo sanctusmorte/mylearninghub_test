@@ -18,14 +18,11 @@
         "vue-loader": "^17.0.1"
     },
     "dependencies": {
-        "@jobinsjp/vue3-datatable": "^1.0.15",
         "@kyvg/vue3-notification": "^2.9.1",
         "@popperjs/core": "^2.11.7",
         "bootstrap": "^5.2.3",
-        "laravel-vue-pagination": "^4.1.0",
         "sass": "1.32",
         "sass-loader": "^13.3.0",
         "vue": "^3.2.36",
-        "vue3-easy-data-table": "^1.5.42"
     }
 }
