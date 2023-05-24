@@ -12,3 +12,16 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.vue-notification-template {
+    padding: 20px 30px;
+    color: white;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+.vue-notification-template.success {
+    background: #68cd86 !important;
+}
+.vue-notification-template.error {
+    background: #e54d42 !important;
+}

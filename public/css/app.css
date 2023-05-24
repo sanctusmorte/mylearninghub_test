@@ -13,6 +13,19 @@
     100% { transform: rotate(360deg); }
 }
 
+.vue-notification-template {
+    padding: 20px 30px;
+    color: white;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+.vue-notification-template.success {
+    background: #68cd86 !important;
+}
+.vue-notification-template.error {
+    background: #e54d42 !important;
+}
+
 @charset "UTF-8";
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)

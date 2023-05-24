@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create(UserTableEnum::TABLE_NAME, function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

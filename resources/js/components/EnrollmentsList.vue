@@ -1,5 +1,8 @@
 <script>
 
+import { useNotification } from "@kyvg/vue3-notification";
+
+const { notify }  = useNotification()
 
 const API_ENROLLMENTS = '/api/v1/enrollments'
 
@@ -58,6 +61,79 @@ export default {
                     this.available_statuses = json.items;
                 });
         },
+        edit_setting: function (enrollment) {
+                this.is_loading = true;
+
+                fetch(API_ENROLLMENTS, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            id: enrollment.id,
+                            status: enrollment.status
+                        }
+                    )
+                })
+                .then(res => res.json())
+                .then(res => {
+
+                    if (res.status === 'success') {
+                        notify({
+                            type: 'success',
+                            title: "Enrollment changed",
+                            text: "You successfully changed enrollment with the id " + enrollment.id,
+                        });
+                    } else {
+                        notify({
+                            type: 'error',
+                            title: "Enrollment error",
+                            text: "Something wrong with changing enrollment with the id " + enrollment.id,
+                        });
+                    }
+
+                    enrollment.is_edit = 0;
+                    this.fetch_data();
+                });
+        },
+        remove_setting: function (enrollment) {
+            this.is_loading = true;
+
+            fetch(API_ENROLLMENTS, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        id: enrollment.id,
+                    }
+                )
+            })
+                .then(res => res.json())
+                .then(res => {
+                    enrollment.is_edit = 0;
+                    this.fetch_data();
+
+                    if (res.status === 'success') {
+                        notify({
+                            type: 'success',
+                            title: "Enrollment deleted",
+                            text: "You successfully deleted enrollment with the id " + enrollment.id,
+                        });
+                    } else {
+                        notify({
+                            type: 'error',
+                            title: "Enrollment error",
+                            text: "Something wrong with deleting enrollment with the id " + enrollment.id,
+                        });
+                    }
+
+                });
+        },
         fetch_data: function (needUrl) {
             if(this.timeout) clearTimeout(this.timeout);
 
@@ -95,6 +171,7 @@ export default {
                 fetch(API_ENROLLMENTS + '?' + new URLSearchParams(urlParams))
                     .then(res => res.json())
                     .then(json => {
+                        this.is_loading = false;
 
                         json.data = Object.keys(json.data).map((k) => {
                             json.data[k].is_edit = 0;
@@ -102,10 +179,8 @@ export default {
                         })
 
                         this.enrollments = json;
-
-                        this.is_loading = false;
                     });
-            }.bind(this),1000);
+            }.bind(this),600);
         },
     },
 };
@@ -146,7 +221,12 @@ export default {
             </div>
         </div>
         <div class="row mt-5">
-                <div v-if="(enrollments.data === undefined || enrollments.data.length < 1) || is_loading" class="loader"></div>
+            <div class="col-4">
+                <a href="/enrollments/new"><button type="button" class="btn btn-success">Create new enrollment</button></a>
+            </div>
+        </div>
+        <div class="row mt-5">
+                <div v-if="is_loading" class="loader"></div>
                 <div v-if="enrollments.data !== undefined && enrollments.data.length > 0 && !is_loading">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-6">
@@ -180,9 +260,6 @@ export default {
                             <th class="thead-clickable" @click="changeSort('status')" scope="col">Status
                                 <ion-icon v-if="currentSort === 'status'" :name="currentSortDir === 'desc' ? 'arrow-down-outline' : 'arrow-up-outline'"></ion-icon>
                             </th>
-                            <th class="thead-clickable" @click="changeSort('status')" scope="col">Editing
-                                <ion-icon v-if="currentSort === 'status'" :name="currentSortDir === 'desc' ? 'arrow-down-outline' : 'arrow-up-outline'"></ion-icon>
-                            </th>
                             <th scope="col">
                             </th>
                         </tr>
@@ -202,13 +279,15 @@ export default {
                                 <span v-text="item.user.email"></span>
                             </td>
                             <td>
-                                <span v-text="item.status"></span>
+                                <span v-if="!item.is_edit" v-text="item.status"></span>
+                                <select v-if="item.is_edit" v-model="item.status">
+                                    <option v-for="available_status in available_statuses" :value="available_status.status">{{ available_status.status }}</option>
+                                </select>
                             </td>
                             <td>
-                                <span v-text="item.is_edit"></span>
-                            </td>
-                            <td>
-                                <ion-icon name="create-outline"></ion-icon>
+                                <ion-icon v-if="!item.is_edit" @click="item.is_edit = !item.is_edit" name="create-outline"></ion-icon>
+                                <ion-icon @click=edit_setting(item) v-if="item.is_edit" name="checkmark-circle-outline"></ion-icon>
+                                <ion-icon style="margin-left: 10px;" @click=remove_setting(item) v-if="item.is_edit" name="trash-outline"></ion-icon>
                             </td>
                         </tr>
                         </tbody>
@@ -217,6 +296,8 @@ export default {
                 <div v-else-if="!is_loading">Nothing found</div>
         </div>
     </div>
+
+    <notifications width="700" :duration="7000" position="top right" classes="custom" />
 </template>
 
 <style>

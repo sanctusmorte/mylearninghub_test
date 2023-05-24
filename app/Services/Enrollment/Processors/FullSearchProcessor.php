@@ -35,6 +35,10 @@ class FullSearchProcessor implements EnrollmentProcessor
                 $query->where('courses.title', 'like', '%'.$DTO->getCourseTitle().'%');
             }
 
+            if (!empty($DTO->getStatus())) {
+                $query->where('enrollments.status', '=', $DTO->getStatus());
+            }
+
             return $query
                 ->select(
                     [
