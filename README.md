@@ -16,10 +16,10 @@
 
 **How to install:**
 
-git clone
-composer install
-php artisan key:generate
-npm install && npm run build
-php artisan migrate
-php artisan seed
-php artisan test
+    git clone
+    composer install
+    php artisan key:generate
+    npm install && npm run build
+    php artisan migrate
+    php artisan seed
+    php artisan test
