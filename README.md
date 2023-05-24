@@ -12,3 +12,4 @@ Test task https://mylearninghub.notion.site/mylearninghub/full-stack-1a2d3824e6d
     Factory pattern for processing
     Laravel middleware for API
     PHPUnit for API endpoints
+    ResponseTrait
